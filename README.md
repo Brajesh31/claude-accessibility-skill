@@ -1,121 +1,138 @@
-# claude-accessibility-skill
+# Accessibility Skill
 
-A Claude Code skill for evaluating and improving web accessibility with practical WCAG-based review workflows.
+A practical accessibility skill for evaluating and improving websites and applications using structured WCAG-based review workflows. It helps identify barriers, understand their impact, choose appropriate implementation patterns, and validate fixes.
 
-## Overview
+Accessibility is part of product quality. It should be considered during design and development, not postponed until the final release review.
 
-This skill helps identify barriers that prevent people from perceiving, understanding, or operating a website or application. It focuses on actionable accessibility improvements across structure, semantics, keyboard interaction, forms, visual presentation, and assistive-technology support.
+## What This Skill Covers
 
-Accessibility should be considered throughout design and development, not treated as a final cosmetic pass.
+- The four POUR principles: Perceivable, Operable, Understandable, and Robust.
+- WCAG 2.1 success criteria and conformance levels.
+- Semantic HTML, heading hierarchy, and landmarks.
+- Text alternatives for images and accessible names for controls.
+- Color contrast and non-color indicators.
+- Keyboard access, visible focus, and skip links.
+- Forms, instructions, validation, and error feedback.
+- Accessible dialogs, tabs, accordions, and dynamic content.
+- Media alternatives, zoom, responsive reflow, and reduced motion.
+- Automated and manual testing workflows.
 
-## Core Principles
+## When to Use It
 
-The skill uses the four POUR principles:
+Use this skill when asked to improve a website's accessibility, conduct an a11y review, improve screen-reader support, check keyboard navigation, or plan accessibility remediation.
 
-- **Perceivable:** Information and interface elements must be available through appropriate sensory channels.
-- **Operable:** Users must be able to navigate and interact with the interface.
-- **Understandable:** Content, controls, and feedback should behave predictably.
-- **Robust:** Markup and interactions should work with browsers and assistive technologies.
-
-## What It Helps Review
-
-### Semantic Structure
-
-- Correct heading hierarchy.
-- Landmark regions and page structure.
-- Native HTML elements before custom controls.
-- Accessible names and descriptions.
-- Meaningful link and button text.
-
-### Keyboard Accessibility
-
-- Complete keyboard operation.
-- Logical focus order.
-- Visible focus indicators.
-- Correct focus management for dialogs and menus.
-- No keyboard traps.
-
-### Forms and Validation
-
-- Programmatic labels and instructions.
-- Clear required-field communication.
-- Useful error messages.
-- Error identification that does not rely on color alone.
-- Accessible status and success feedback.
-
-### Visual Accessibility
-
-- Text and non-text contrast.
-- Text resizing and zoom behavior.
-- Responsive layouts and reflow.
-- Reduced-motion preferences.
-- Avoiding color as the only way to communicate meaning.
-
-### Assistive Technology
-
-- Appropriate ARIA use.
-- Screen-reader names, roles, and states.
-- Live-region behavior where needed.
-- Accessible dynamic updates.
+It can be used during design reviews, development, QA, and pre-release validation.
 
 ## Installation
 
-```bash
+~~~bash
 git clone https://github.com/Brajesh31/claude-accessibility-skill.git ~/.claude/skills/accessibility
-```
+~~~
 
-## Usage
+## Invocation
 
-Use the skill when reviewing a page, component, design implementation, or accessibility defect:
-
-```text
+~~~text
 /accessibility
-```
+~~~
 
-Provide the relevant source files, target page, expected interactions, and any known accessibility requirements.
+Provide the URL, component, framework, user journey, target conformance level, and any known assistive-technology requirements.
 
-## Recommended Audit Workflow
+## Recommended Workflow
 
-1. Inspect the page structure and interactive elements.
-2. Review semantic HTML and accessible names.
-3. Test all controls using only a keyboard.
-4. Inspect focus order and visible focus.
-5. Check text and interface contrast.
-6. Review forms, errors, dialogs, and dynamic updates.
-7. Run automated checks as a supplement, not as the sole audit.
-8. Report each finding with its location, user impact, severity, and recommended fix.
-9. Re-test the affected interaction after changes.
+1. Identify the user journey and page states being reviewed.
+2. Inspect semantics, headings, landmarks, labels, and accessible names.
+3. Test keyboard reachability, activation, focus order, and focus visibility.
+4. Review forms, instructions, validation, and status messaging.
+5. Check images, contrast, zoom, reflow, and motion preferences.
+6. Run automated tools for detectable issues.
+7. Verify critical flows manually with keyboard and screen readers.
+8. Record each issue with user impact, evidence, priority, and a fix.
+9. Re-test after changes and document remaining limitations.
 
-## Example Finding Format
+## WCAG Principles
 
-| Field | Description |
+| Principle | What it means in practice |
 |---|---|
-| Issue | Concise description of the barrier |
-| Location | Page, component, or source location |
-| Impact | How the issue affects users |
-| Priority | Severity and practical urgency |
-| Fix | Specific implementation change |
-| Verification | How to confirm the fix |
+| Perceivable | Information and controls can be perceived through appropriate sensory channels. |
+| Operable | Users can navigate and operate controls with different input methods. |
+| Understandable | Content and interaction behavior are clear and predictable. |
+| Robust | Content and controls work with browsers and assistive technologies. |
 
-## Validation Checklist
+## Common Review Areas
 
-- Every interactive control is keyboard accessible.
-- Focus is visible and follows a sensible order.
-- Images have appropriate alternative text or are marked decorative.
-- Form controls have accessible labels.
-- Errors are announced and associated with their fields.
-- Headings and landmarks communicate page structure.
-- Contrast is sufficient for text and controls.
-- Zoom and reflow do not hide content or functionality.
-- Motion-sensitive users have suitable alternatives.
-- ARIA is used only when native HTML does not provide the needed semantics.
+### Text alternatives
 
-## Repository Contents
+Provide text alternatives appropriate to the image's purpose. Informative images need a meaningful description, decorative images should generally be ignored by assistive technology, and functional images should describe the action.
 
-- `SKILL.md`: Main accessibility review instructions.
-- `references/WCAG.md`: Detailed accessibility reference material.
-- `README.md`: Overview, audit workflow, and checklist.
+### Contrast and visual states
 
-## Important Note
+Check text and non-text contrast. Ensure focus, selection, validation, and other states are not communicated by color alone.
 
-An automated scan cannot establish full accessibility conformance. Combine automated checks with keyboard testing, manual inspection, and assistive-technology testing appropriate to the product.
+### Semantic HTML
+
+Prefer native buttons, links, headings, lists, tables, and form elements. Use ARIA to supplement semantics when necessary, not to replace correct native elements.
+
+### Keyboard operation
+
+Ensure every interactive feature can be reached and operated using the keyboard. Focus should be visible, follow a logical order, and never become trapped unintentionally.
+
+### Forms and validation
+
+Associate labels, hints, required states, and errors with their fields. Explain how to correct errors and make dynamic feedback available to assistive technology.
+
+### Interactive components
+
+Dialogs, tabs, accordions, menus, and custom controls need clear names, states, keyboard behavior, and focus management. Follow established interaction patterns instead of inventing new ones.
+
+## Included References and Resources
+
+- [WCAG 2.1 quick reference](references/WCAG.md)
+- [Interactive component checklist](references/component-checklist.md)
+- [Accessibility issue report template](templates/accessibility-issue-template.md)
+
+## Testing Strategy
+
+| Method | What it can reveal | Important limitation |
+|---|---|---|
+| Automated tools | Detectable markup, contrast, and rule violations | Cannot assess all user journeys or meaning |
+| Keyboard-only review | Focus order, traps, and operability | Does not replace screen-reader testing |
+| Screen-reader review | Reading order, names, states, and announcements | Depends on browser and screen-reader combination |
+| Zoom and reflow | Layout and content behavior at larger sizes | Must be tested on realistic screens |
+| Code review | Semantic structure and implementation quality | Runtime behavior still needs validation |
+
+A clean automated scan is not a conformance certificate. Combine tools with hands-on testing.
+
+## Quality Checklist
+
+- Semantic HTML is used appropriately.
+- Headings and landmarks describe the page structure.
+- Images have appropriate alternatives.
+- Form controls have accessible names.
+- Keyboard interaction is complete and predictable.
+- Focus remains visible and is managed correctly.
+- Errors and dynamic status updates are communicated.
+- Contrast and visual states are sufficient.
+- Content remains usable when enlarged or reflowed.
+- The same user journey has been retested after fixes.
+
+## Limitations
+
+WCAG conformance depends on the complete experience, including content, code, third-party widgets, and user journeys. Requirements and legal obligations vary by jurisdiction. State the tested scope and version, and avoid claiming legal compliance based on a checklist or automated score alone.
+
+## Repository Structure
+
+~~~text
+claude-accessibility-skill/
+├── SKILL.md
+├── README.md
+├── LICENSE
+├── references/
+│   ├── WCAG.md
+│   └── component-checklist.md
+└── templates/
+    └── accessibility-issue-template.md
+~~~
+
+## License
+
+Released under the MIT License. Copyright (c) 2026 Brajesh Kumar. See the root `LICENSE` file for the complete terms.
